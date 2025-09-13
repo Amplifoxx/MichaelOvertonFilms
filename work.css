@@ -1086,7 +1086,7 @@ body::-webkit-scrollbar {
   margin: 2px auto;     /* <-- centers it */
   aspect-ratio: 16 / 9;
   min-height: 400px;
-  max-height: 36vw;
+  max-height: 30vw;
   overflow: hidden;
   background: #000;
   border-radius: 10px;     /* optional, looks nice */
