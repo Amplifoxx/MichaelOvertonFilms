@@ -1297,7 +1297,7 @@ border: 1px solid transparent;         /* thickness of the border */
   transform: translateY(-50%);
 }
 
-/* phones/tablets: tap goes to the wrapper, not the <video> */
-@media (max-width: 900px){
+/* Phones/tablets: tap goes to the wrapper/link, not the <video> */
+@media (hover: none) and (pointer: coarse) {
   .oldvideoPreview__box video { pointer-events: none; }
 }
