@@ -1,0 +1,395 @@
+
+* {
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:  Apple_Garamond;
+  color: #f0ffbf;
+  background-color: #000000;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+/* this is the loader thing */
+#video-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(0, 0, 0); /* or black, depending on your site vibe */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease; /* <--- smooth fade */
+  pointer-events: all;
+}
+
+/* Simple spinner inside */
+.spinner {
+  border: 6px solid rgba(0, 0, 0, 0.2);
+  border-top: 6px solid #BCCD7E; /* your theme color */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hiding the loader smoothly */
+#video-loader.fade-out {
+  opacity: 0;
+  pointer-events: none; /* Allow clicks once faded */
+}
+
+/* end of loader thing */
+
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: #000000;
+    color: rgb(0, 0, 0);
+    padding: 0px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 0px 0px rgba(0,0,0,0.2);
+  }
+
+  .navbar a {
+    color:#f0ffbf;
+    text-decoration: none;
+    margin: 0 1rem;
+  }
+
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+
+  .content {
+    padding: 0px 0px 0px; /* Add top padding to avoid content being hidden under navbar */
+  }
+
+  .nav__logo {
+    width: 100px;
+    object-fit: contain;
+}
+
+.nav__avatar {
+    width: 30px;
+    object-fit: contain;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    z-index: 1;
+    justify-content: space-between;
+    transition-timing-function: ease-in;
+    transition: all 0.2s;
+    height: 90px;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+/* This is when you scroll, if on*/
+.nav__black {
+    background-color: #ffffff;
+    z-index: 2;
+}
+
+.nav__title {
+    cursor: pointer;
+    color: #111;
+    font-size: 46px;
+    font-family: Apple_Garamond;
+    font-weight: bold;
+    justify-content: center;
+    text-align: center;
+    margin-left: 80px;
+    border: none;
+    background-color: transparent;
+    white-space: nowrap;
+    overflow: ;
+    padding-right:40px;
+    z-index: 2;
+
+    }
+
+    .nav__page {
+        cursor: pointer;
+        color: #fff;
+        font-family: arial;
+        font-size: 12px;
+        margin-top: 8px;
+        padding: 0px 10px;
+        justify-content: left;
+        text-decoration: none !important;
+        border: none;
+        background: transparent;
+    }
+
+
+    .nav__buttons {
+        margin-top:0px;
+    }
+    .nav__button {
+        cursor: pointer;
+        color:  #000000;
+        outline: none;
+        border: none;
+        font-weight: 700;
+        border-radius: 3vw;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        margin-right: 15px;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        background-color: #ffffff;
+        font-family: Apple_Garamond;
+        font-size: 20px;
+        }
+
+        .nav__button:hover {
+          padding-left: 2rem;
+          padding-right: 2rem;
+          margin-right: 15px;
+          padding-top: 0.2rem;
+          padding-bottom: 0.2rem;
+          background-color: #ffffff;
+          font-family: Apple_Garamond;
+          font-size: 20px;
+
+        }
+
+.nav__spacer {
+    display: flex;
+    justify-content: flex-start;
+    /* adjustment */
+    position: relative;
+    /* new */
+    width: 100%;
+    height: 200px;
+}
+
+.video-banner {
+  margin-top: 0px;
+  position: relative;
+  height: calc(100vh - 80px); /* Subtract navbar height from the full viewport height */
+  margin-top: 80px; /* Push the banner down by the height of the navbar */
+  max-height: none;
+  width: 100%;
+  overflow: hidden;
+  
+}
+
+.video-banner video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: -1;
+  filter: blur(0px); /* <-- this is the magic */
+}
+
+.vimeo-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.vimeo-wrapper iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 177.78vh; /* 16:9 aspect ratio math */
+  height: 100vh;
+  min-width: 100%;
+  min-height: 56.25vw; /* 16:9 aspect ratio math */
+  pointer-events: none;
+}
+
+
+.video-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  z-index: 1;
+}
+
+.video-content h1 {
+  font-size: 3rem;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.banner-spacer {
+height: 91px;
+background-color: #000000
+  ;
+}
+
+.video-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: radial-gradient(#27272733 1px, transparent 1px);
+  background-size: 0px 0px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* Overlay Styling */
+.overlay {
+  position: absolute;
+  margin-left: -24px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.0); /* Semi-transparent black overlay */
+  display: flex;
+  justify-content: left; /* Center content horizontally */
+  align-items: center;     /* Center content vertically */
+  padding: 100px;
+  z-index: 1;
+}
+
+.gradient-overlay {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.) 0%, rgba(0, 0, 0, 0) 60%);
+  pointer-events: none; /* Doesn’t block clicks */
+  z-index: 1;
+}
+
+/* Text and Buttons Container */
+.text-container {
+  text-align: left;
+  color: white;
+  max-width: 700px;
+}
+
+.description {
+  font-family: Gilroy_Black;
+  text-align: left;
+  font-size: 70px;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.sub-description {
+  font-family: Gilroy_Bold;
+  text-align: left;
+  font-size: 12px;
+  margin-bottom: 20px;
+  margin-left: 4px;
+  line-height: 1;
+  letter-spacing: 6px;
+  word-spacing: 10px;
+}
+
+.button-container {
+  font-family: arial;
+  display: flex;
+  margin-left: 4px;
+  justify-content: left;
+  text-align: left;
+  gap: 20px;
+}
+
+.nav-button {
+  background-color: none; /* Button color */
+  font-family: Gilroy_Medium;
+  color: white;
+  padding: 4px 20px;
+  text-decoration: none;
+  border: solid 1px;
+  font-size: 12px;
+  border-radius: 0px;
+  transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #fff; /* Button hover color */
+  border: solid 1px;
+  border-color: #ffffff;
+  color: black;
+  mix-blend-mode: screen; /* makes text see-through on hover */
+}
+  /* custom fonts */
+
+
+  
+
+/* Galano */
+@font-face { font-family: Galano Grotesque; src: url('Galano_Grotesque.otf'); } 
+@font-face { font-family: Galano Grotesque; font-weight: bold; src: url('Galano_Grotesque_ExtraBold.otf');}
+
+/* DIN PRO */
+@font-face { font-family: DIN PRO; font-weight: normal; src: url('D-DIN-PRO-400-Regular.otf'); } 
+@font-face { font-family: DIN PRO; font-weight: bold; src: url('D-DIN-PRO-700-Bold.otf');}
+@font-face { font-family: DIN PRO SEMIBOLD; font-weight: normal; src: url('D-DIN-PRO-600-SemiBold.otf');}
+@font-face { font-family: DIN PRO EXTRABOLD; font-weight: normal; src: url('D-DIN-PRO-800-ExtraBold.otf');}
+
+@font-face { font-family: Perpetua; font-weight: normal; src: url('perpeta.ttf');}
+
+
+/* Inter*/
+@font-face { font-family: Inter_Bold; src: url('Inter-Bold.ttf'); } 
+@font-face { font-family: Inter_SemiBold; src: url('Inter-SemiBold.ttf'); } 
+@font-face { font-family: Inter_Black; src: url('Inter-Black.ttf'); } 
+@font-face { font-family: Inter_Regular; src: url('Inter-Regular.ttf'); } 
+@font-face { font-family: Inter_Medium; src: url('Inter-Medium.ttf'); } 
+
+ /* Apple Garamond */
+ @font-face { font-family: Apple_Garamond_Bold; src: url('Fonts/Apple_Garamond/AppleGaramond-Bold.ttf'); } 
+ @font-face { font-family: Apple_Garamond_BoldItalic; src: url('Fonts/Apple_Garamond/AppleGaramond-BoldItalic.ttf'); } 
+ @font-face { font-family: Apple_Garamond_Italic; src: url('Fonts/Apple_Garamond/AppleGaramond-Italic.ttf'); } 
+ @font-face { font-family: Apple_Garamond_Light; src: url('Fonts/Apple_Garamond/AppleGaramond-Light.ttf'); } 
+ @font-face { font-family: Apple_Garamond_LightItalic; src: url('Fonts/Apple_Garamond/AppleGaramond-LightItalic.ttf'); } 
+ @font-face { font-family: Apple_Garamond; src: url('Fonts/Apple_Garamond/AppleGaramond.ttf'); } 
+ 
+    /* Gilroy */
+@font-face { font-family: Gilroy_Regular; src: url('Fonts/Gilroy/Gilroy-Regular.ttf'); } 
+@font-face { font-family: Gilroy_Bold; src: url('Fonts/Gilroy/Gilroy-Bold.ttf'); } 
+@font-face { font-family: Gilroy_Medium; src: url('Fonts/Gilroy/Gilroy-Medium.ttf'); } 
+@font-face { font-family: Gilroy_Black; src: url('Fonts/Gilroy/Gilroy-Black.ttf'); } 
+@font-face { font-family: Gilroy_Light; src: url('Fonts/Gilroy/Gilroy-Light.ttf'); } 
+
+ /* Steel Tongs */
+ @font-face { font-family: SteelTongs; src: url('SteelTongs.ttf'); } 
+
+
+
+/*landing page CSS */
