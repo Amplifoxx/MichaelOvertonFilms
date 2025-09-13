@@ -358,6 +358,8 @@ My name is Mike. I'm an American filmmaker born and raised in New England, curre
         </button>
         <div class="movie__slider">
 
+          
+
            <div class="oldvideoPreview__box" data-video="https://player.vimeo.com/video/1118039299">
               <a href="#" class="preview__link">
                 <div class="preview__wrapper">
@@ -696,6 +698,13 @@ contactPopup.addEventListener('click', (e) => {
     contactPopup.classList.add('hidden');
   }
 });
+</script>
+
+<script>
+const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+if (!isTouch) {
+  // your desktop hover play/pause for preview videos here
+}
 </script>
 
 
