@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Atrium</title>
+    <link rel="stylesheet" href="styles.css"/>
+
+</head>
+
+<!-- this is the loading wheel!-->
+
+<div id="video-loader">
+  <div class="spinner"></div>
+</div>
+
+<body>
+
+
+   <!-- this section is the top nav. FILMS GRAPHICS ETC. Might not need it anymore -->
+   <div class="nav" id="nav" style="z-index: 3;">
+    <a href="index.html"><button class="nav__title"><p style="line-height: 40px;">Atrium<break style="color: #BCCD7E;stroke-width: 2px;">.</break></p></button></a>
+   <!-- <a href="index.html"><button class="nav__title"><p style="line-height: 40px;">Atrium.</p><p style="font-size: 10px;font-family: Gilroy_Medium;letter-spacing: 7px;margin-left:5px">IMAGERY</p></button></a>-->
+        <!-- <img src="images/netflix-avatar.png" alt="" class="nav__avatar"> -->
+        <!--<a href=home.html><button class="nav__page">Films</button></a> -->
+        <!--<button class="nav__page" onClick="scrollToBottom()" style="margin-top:5px">Graphics</button>-->
+        <!-- <a href=home.html><button class="nav__page">Animation</button></a> -->
+        <div class="nav__spacer"></div>
+            <a href="work.html"><button class="nav__button">Work</button></a>
+            <a href="contact.html"><button class="nav__button">Contact</button></a>
+            <!-- <button class="nav__button">RESUMÉ</button> -->
+        </div>
+
+<!-- <div class="banner-spacer"> -->
+
+</div>
+
+<section class="video-banner">
+  <div class="vimeo-wrapper">
+    <iframe id="vimeoVideo" src=" https://player.vimeo.com/video/1075188114?background=1&autoplay=1&loop=1&muted=1&byline=0&title=0"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <div class="gradient-overlay"></div>
+  <div class="video-banner">
+    <video autoplay muted loop>
+      <source src="your-video.mp4" type="video/mp4">
+    </video>
+    
+  </div>
+  <div class="overlay">
+    <div class="text-container">
+      <div class="description"><p>POST<p></p>PRODUCTION.</p></div>
+      <div class="sub-description"><p>EDITING | VFX | SOUND DESIGN<p></div>
+      <div class="button-container">
+        <a href="work.html" class="nav-button">WORK</a>
+        <a href="contact.html" class="nav-button">CONTACT</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<section class="video-banner">
+  <video autoplay muted loop playsinline>
+    <source src="images/Banners/sizzle_test_4k.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div class="gradient-overlay"></div>
+  <div class="video-banner">
+    <video autoplay muted loop>
+      <source src="your-video.mp4" type="video/mp4">
+    </video>
+    
+  </div>
+  <div class="overlay">
+    <div class="text-container">
+      <div class="description"><p>POST<p></p>PRODUCTION.</p></div>
+      <div class="sub-description"><p>EDITING | VFX | SOUND DESIGN<p></div>
+      <div class="button-container">
+        <a href="work.html" class="nav-button">WORK</a>
+        <a href="work.html" class="nav-button">CONTACT</a>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+
+</body>
+
+</html>
+
+<script>
+  const leftArrow = document.querySelector('.scroll-arrow.left');
+const rightArrow = document.querySelector('.scroll-arrow.right');
+const previewRow = document.querySelector('.preview-row');
+
+let scrollPosition = 0;
+const previewWidth = 220; // Including margin and padding
+const previewsToShow = 5;
+
+leftArrow.addEventListener('click', () => {
+    if (scrollPosition > 0) {
+        scrollPosition--;
+        previewRow.style.transform = `translateX(-${scrollPosition * previewWidth}px)`;
+    }
+});
+
+rightArrow.addEventListener('click', () => {
+    if (scrollPosition < 25) { // Total of 30 items, so we stop before the last one
+        scrollPosition++;
+        previewRow.style.transform = `translateX(-${scrollPosition * previewWidth}px)`;
+    }
+});
+
+</script>
+
+
+<!-- loading wheel script-->
+<script>
+  const iframe = document.getElementById('vimeoVideo');
+  const loader = document.getElementById('video-loader');
+
+  iframe.onload = function() {
+    loader.classList.add('fade-out');
+
+    // Wait **LONGER** after fadeout before hiding
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 1600); // <-- 1.5 seconds instead of 600ms
+  }
+
+  
+</script>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+
