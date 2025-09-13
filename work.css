@@ -1078,6 +1078,20 @@ body::-webkit-scrollbar {
   }
 
 
+  /* phone tweaks */
+@media (max-width: 470px){
+
+  .carousel-content-1 p{
+    font-size: clamp(5px, 3.1vw, 16px);
+    line-height: 1.2;
+    margin: 10px 0 0;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    width:90%;  
+  }
+}
+
+
   /* Centered hero like Disney+ */
 .carousel{
   position: relative;
@@ -1271,7 +1285,11 @@ border: 1px solid transparent;         /* thickness of the border */
   outline: none;
   border: none;
   margin-right: 30px;
-  margin-top: 3px;
+  margin-top: 2px;
   font-family: Gilroy_Bold;
   font-size: 20px;
+  position: absolute;
+  right: calc(16px + env(safe-area-inset-right));
+  top: 50%;
+  transform: translateY(-50%);
 }
