@@ -1002,6 +1002,23 @@ body::-webkit-scrollbar {
    z-index: 20;
   }
 
+  .carousel-content{
+  position: absolute;
+  left: 5%;
+  bottom: 12%;
+  z-index: 2;
+  max-width: 500px;   /* increase this to fit more text */
+  width:100%;         /* or set a percentage of slide width */
+   color: #ffaa00;
+   font-family: Gilroy_Bold;
+   z-index: 20;
+  }
+
+  .carousel-content h2 {
+    line-height: .80;
+  width:100%;  
+  }
+
 
 
   .carousel-content p{
@@ -1010,6 +1027,7 @@ body::-webkit-scrollbar {
    font-size: 16px;
    text-align: justify;
   text-justify: inter-word;
+  margin-top: 10px;
   }
 
 
@@ -1050,6 +1068,8 @@ body::-webkit-scrollbar {
   .carousel-content-1{ width: min(100%, 400px);
     text-align: justify;
   text-justify: ; 
+  
+  
   }
 }
 
@@ -1091,6 +1111,31 @@ body::-webkit-scrollbar {
      hyphens: none;
   word-break: normal;
   overflow-wrap: normal;
+  }
+
+  .carousel-content{
+  position: absolute;
+  left: 5%;
+  bottom: 12%;
+  z-index: 2;
+  max-width: 320px;   /* increase this to fit more text */
+  width:100%;         /* or set a percentage of slide width */
+   color: #ffaa00;
+   font-family: Gilroy_Bold;
+   z-index: 20;
+  }
+
+  .carousel-content h2 {
+    line-height: .80;
+  width:100%;  
+  }
+
+    .carousel-content p {
+     color: #ffffff;
+   font-family: Gilroy_Regular;
+   font-size: 16px;
+   text-align: justify;
+  text-justify: inter-word;
   }
 }
 
