@@ -1296,3 +1296,8 @@ border: 1px solid transparent;         /* thickness of the border */
   top: 50%;
   transform: translateY(-50%);
 }
+
+/* phones/tablets: tap goes to the wrapper, not the <video> */
+@media (max-width: 900px){
+  .oldvideoPreview__box video { pointer-events: none; }
+}
