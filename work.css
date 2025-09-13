@@ -1088,7 +1088,9 @@ body::-webkit-scrollbar {
     overflow-wrap: anywhere;
     hyphens: auto;
     width:90%;  
-    hyphens: none;
+     hyphens: none;
+  word-break: normal;
+  overflow-wrap: normal;
   }
 }
 
