@@ -26,9 +26,9 @@ html, body {
     radial-gradient(circle, rgba(255, 191, 0, 0.03) 1px, transparent 1px),
     /* your gradient */
     radial-gradient(
-    ellipse at top center,       /* position the gradient at the top */
-    rgba(35, 35, 35, 0.935)30%,  /* light center */
-    rgba(22, 22, 22, 0.994) 100%      /* darker edges */
+    ellipse at  center,       /* position the gradient at the top */
+    rgba(52, 52, 52, 0.935)10%,  /* light center */
+    rgba(10, 16, 23, 0.994) 100%      /* darker edges */
   );
   background-size: 10px 10px, cover;  /* dot spacing + gradient fill */
   background-position: 0 0, center;
@@ -125,7 +125,6 @@ body::-webkit-scrollbar {
         justify-content: right;
         align-items: center;
         z-index: 1000;
-        box-shadow: 0 0px 0px rgba(0,0,0,0.2);
       }
     
       .navbar a {
@@ -531,7 +530,7 @@ body::-webkit-scrollbar {
     background: transparent;
     overflow: hidden;
     border-radius: 3px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* <-- Drop shadow */
+    box-shadow: 00px 4px 7px rgba(0, 0, 0, 0.4); /* <-- Drop shadow */
   }
 
   .movie__slider .oldvideoPreview:hover {
@@ -552,13 +551,13 @@ body::-webkit-scrollbar {
   overflow: hidden;
   margin-right: 0px;
   margin-left: 0px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); /* <-- Drop shadow */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.9); /* <-- Drop shadow */
   transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .oldvideoPreview__box:hover {
   transform: scale(1.01);
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* <-- Drop shadow */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* <-- Drop shadow */
 }
 
   
