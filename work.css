@@ -18,11 +18,6 @@
 
 html, body {
     font-family: Inter_Regular;
-    background: radial-gradient(
-    ellipse at top center,       /* position the gradient at the top */
-    rgba(25, 25, 25, 0.935)30%,  /* light center */
-    rgba(13, 12, 13, 0.994) 100%      /* darker edges */
-  );
   background-attachment: fixed;
   background-size: cover;
   color-scheme: dark;  
@@ -32,8 +27,8 @@ html, body {
     /* your gradient */
     radial-gradient(
     ellipse at top center,       /* position the gradient at the top */
-    rgba(25, 25, 25, 0.935)30%,  /* light center */
-    rgba(13, 12, 13, 0.994) 100%      /* darker edges */
+    rgba(35, 35, 35, 0.935)30%,  /* light center */
+    rgba(22, 22, 22, 0.994) 100%      /* darker edges */
   );
   background-size: 10px 10px, cover;  /* dot spacing + gradient fill */
   background-position: 0 0, center;
