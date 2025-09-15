@@ -429,6 +429,51 @@ My name is Mike. I'm an American filmmaker born and raised in New England, curre
   const carousel = document.querySelector('.carousel');
   const track    = document.querySelector('.carousel-track');
   const slides   = [...track.children];
+
+  // ============ Seamless loop setup ============
+  // Keep your original "slides" array as the logical set:
+  const realSlides = [...slides];
+
+  // Clone first & last for seamless wrap
+  const firstClone = realSlides[0].cloneNode(true);
+  const lastClone  = realSlides[realSlides.length - 1].cloneNode(true);
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, track.firstChild);
+
+  // Visible index in the augmented list ( [lastClone] [real 0] ... [real n-1] [firstClone] )
+  let vIdx = 1; // start on first REAL slide
+
+  // Start positioned on vIdx
+  track.style.transition = 'none';
+  track.style.transform  = `translateX(-${vIdx * 100}%)`;
+  requestAnimationFrame(() => { track.style.transition = ''; });
+
+  // Helper to update dots based on logical idx
+  function updateDots() {
+    dots.forEach((d, di) => d.classList.toggle('active', di === idx));
+  }
+
+  // Snap instantly after crossing a clone
+  track.addEventListener('transitionend', () => {
+    // if we just slid onto the "lastClone" (before first real)
+    if (vIdx === 0) {
+      track.style.transition = 'none';
+      vIdx = realSlides.length; // jump to last REAL
+      track.style.transform = `translateX(-${vIdx * 100}%)`;
+      // force reflow, then restore transition
+      track.offsetHeight;
+      track.style.transition = '';
+    }
+    // if we just slid onto the "firstClone" (after last real)
+    else if (vIdx === realSlides.length + 1) {
+      track.style.transition = 'none';
+      vIdx = 1; // jump to first REAL
+      track.style.transform = `translateX(-${vIdx * 100}%)`;
+      track.offsetHeight;
+      track.style.transition = '';
+    }
+  });
+
   const dotsNav  = document.querySelector('.carousel-dots');
   let dots       = [...dotsNav.children]; // if you already created them earlier
 
@@ -446,11 +491,36 @@ My name is Mike. I'm an American filmmaker born and raised in New England, curre
 
   // ====== basic slide nav
   let idx = 0;
+
+  // *** REPLACED go(i) ***
   function go(i){
-    idx = i;
-    track.style.transform = `translateX(-${i*100}%)`;
-    dots.forEach((d,di)=>d.classList.toggle('active', di===i));
+    // logical 0..realSlides.length-1
+    idx  = (i + realSlides.length) % realSlides.length;
+    vIdx = idx + 1; // map to augmented track index
+    track.style.transform = `translateX(-${vIdx * 100}%)`;
+    updateDots();
     // reset progress each time we land on a slide
+    startTime = performance.now();
+  }
+
+  // *** NEW: advance by direction (-1, 0, +1) while keeping the seamless motion ***
+  function advance(dir = 1){
+    if (dir === 0){
+      // snap back to current vIdx (no slide change)
+      track.style.transform = `translateX(-${vIdx * 100}%)`;
+      updateDots();
+      startTime = performance.now();
+      return;
+    }
+    vIdx += dir; // move to the next/prev visible slide (may be a clone)
+    track.style.transform = `translateX(-${vIdx * 100}%)`;
+
+    // update the logical idx for dots immediately
+    if (vIdx === 0) idx = realSlides.length - 1;                 // on lastClone
+    else if (vIdx === realSlides.length + 1) idx = 0;            // on firstClone
+    else idx = vIdx - 1;                                         // normal case
+
+    updateDots();
     startTime = performance.now();
   }
 
@@ -467,8 +537,8 @@ My name is Mike. I'm an American filmmaker born and raised in New England, curre
     bar.style.transform = `scaleX(${p})`;
 
     if (p >= 1){
-      // advance slide and restart cycle
-      go((idx + 1) % slides.length);
+      // *** CHANGED: always move forward seamlessly ***
+      advance(1);
       p = 0;
       bar.style.transform = `scaleX(0)`;
     }
@@ -494,16 +564,177 @@ My name is Mike. I'm an American filmmaker born and raised in New England, curre
     rafId = null;
   }
 
-
-  // ====== dot click: jump and restart cycle
+  // ====== dot click: jump and restart cycle (logical jump)
   dots.forEach((d,i)=> d.addEventListener('click', () => {
     go(i);
     startAuto();
   }));
 
-  // init
+  // init (logical 0 -> visible index 1)
   go(0);
   startAuto();
+
+  // =================== SWIPE (unchanged API, now uses vIdx/advance) ===================
+  (() => {
+    const carouselEl = document.querySelector('.carousel');
+    const trackEl    = document.querySelector('.carousel-track');
+
+    // reuse globals: slides, idx, go(), startAuto(), cancelAuto(), vIdx, advance()
+    let dragging = false;
+    let startX = 0, moved = 0, startTime = 0;
+    const THRESHOLD_FRAC = 0.15;     // 15% width to change slide
+    const CLICK_SLOP_PX  = 8;        // <= this = treat as click
+    const FLICK_PX_MS    = 0.5;      // quick flick velocity
+
+    function width(){
+      const r = carouselEl.getBoundingClientRect();
+      return Math.max(1, r.width);
+    }
+    function pxToPct(px){ return (px / width()) * 100; }
+
+    // ---- shared helpers
+    function beginDrag(x){
+      dragging  = true;
+      startX    = x;
+      moved     = 0;
+      startTime = performance.now();
+      trackEl.classList.add('dragging');
+      carouselEl.classList.add('grabbing');
+      cancelAuto();
+    }
+
+    // *** CHANGED: follow the finger from vIdx (augmented index) ***
+    function followDrag(x){
+      if (!dragging) return;
+      const dx = x - startX;
+      moved = dx;
+      trackEl.style.transform = `translateX(calc(-${vIdx*100}% + ${pxToPct(dx)}%))`;
+    }
+
+    // *** CHANGED: use advance() instead of computing next/go() ***
+    function finishDrag(dx, dt){
+      const v = Math.abs(dx) / Math.max(1, dt);
+      const passed = Math.abs(dx) > width() * THRESHOLD_FRAC;
+      const flick  = v > FLICK_PX_MS;
+      if (passed || flick) {
+        advance(dx < 0 ? 1 : -1);
+      } else {
+        advance(0); // snap back
+      }
+      startAuto();
+    }
+
+    function endDrag(){
+      if (!dragging) return;
+      dragging = false;
+      trackEl.classList.remove('dragging');
+      carouselEl.classList.remove('grabbing');
+    }
+
+    // ---- Touch (phones/tablets)
+    function onTouchStart(ev){
+      if (ev.target.closest('.carousel-dots')) return; // let dots be taps
+      const t = ev.touches[0];
+      beginDrag(t.clientX);
+    }
+    function onTouchMove(ev){
+      if (!dragging) return;
+      followDrag(ev.touches[0].clientX);
+    }
+    function onTouchEnd(){
+      const dx = moved;
+      const dt = performance.now() - startTime;
+      endDrag();
+      if (Math.abs(dx) <= CLICK_SLOP_PX) { finishDrag(0, dt); return; }
+      finishDrag(dx, dt);
+    }
+    function onTouchCancel(){
+      endDrag();
+      // *** CHANGED: snap to current vIdx, not idx ***
+      trackEl.style.transform = `translateX(-${vIdx * 100}%)`;
+      startAuto();
+    }
+
+    // ---- Mouse (desktops/laptops)
+    function onMouseDown(ev){
+      // left button only; ignore if starting on dots
+      if (ev.button !== 0 || ev.target.closest('.carousel-dots')) return;
+      beginDrag(ev.clientX);
+      ev.preventDefault();
+    }
+    function onMouseMove(ev){
+      if (!dragging) return;
+      followDrag(ev.clientX);
+    }
+    function onMouseUp(){
+      if (!dragging) return;
+      const dx = moved;
+      const dt = performance.now() - startTime;
+      endDrag();
+      if (Math.abs(dx) <= CLICK_SLOP_PX) { finishDrag(0, dt); return; }
+      finishDrag(dx, dt);
+    }
+
+    // Safety: if pointer leaves/blur mid-drag, snap back & resume
+    window.addEventListener('mouseleave', onMouseUp);
+    window.addEventListener('blur',      onTouchCancel);
+
+    // Attach listeners
+    carouselEl.addEventListener('touchstart',  onTouchStart,  { passive: true });
+    carouselEl.addEventListener('touchmove',   onTouchMove,   { passive: true });
+    carouselEl.addEventListener('touchend',    onTouchEnd,    { passive: true });
+    carouselEl.addEventListener('touchcancel', onTouchCancel, { passive: true });
+
+    carouselEl.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup',   onMouseUp);
+
+    // (Your prior link-suppression logic can stay; after CTA migration there are no .slide-link anchors.)
+  })();
+
+  // =================== CTA migration (unchanged) ===================
+  (() => {
+    const slides = document.querySelectorAll('.carousel-slide');
+
+    slides.forEach(slide => {
+      const a = slide.querySelector('.slide-link');
+      if (!a) return; // nothing to migrate
+
+      const href   = a.getAttribute('href');
+      const target = a.getAttribute('target') || '_blank';
+
+      // Move children of <a> back into the slide (unwrap anchor)
+      const kids = [...a.childNodes];
+      const parent = a.parentNode;
+      kids.forEach(n => parent.insertBefore(n, a));
+      a.remove();
+
+      // Find or create the content block
+      let content = slide.querySelector('.carousel-content, .carousel-content-1');
+      if (!content) {
+        content = document.createElement('div');
+        content.className = 'carousel-content';
+        slide.appendChild(content);
+      }
+
+      // If CTA already present, skip
+      if (content.querySelector('.carousel-cta')) return;
+
+      // Build CTA bar + button
+      const ctaBar = document.createElement('div');
+      ctaBar.className = 'carousel-cta';
+
+      const btn = document.createElement('a');
+      btn.className = 'cta-btn';
+      btn.textContent = 'Watch Now';
+      btn.href = href || '#';
+      btn.target = target;
+      btn.rel = 'noopener';
+
+      ctaBar.appendChild(btn);
+      content.appendChild(ctaBar);
+    });
+  })();
 </script>
 
 <!-- this is the end of the script for the banner  -->
@@ -511,102 +742,177 @@ My name is Mike. I'm an American filmmaker born and raised in New England, curre
 
  <!-- this is the script for the scrolling feature  -->
  <script>
- document.addEventListener("click", (e) => {
-  let handle;
-  if (e.target.matches(".handle")) {
-    handle = e.target;
-  } else {
-    handle = e.target.closest(".handle");
+/* ========== PROGRESS + ARROW CLICK BINDINGS ========== */
+function pagesFor(slider){
+  const items = slider.children.length;
+  const per = parseInt(getComputedStyle(slider).getPropertyValue('--items-per-screen')) || 1;
+  return Math.max(1, Math.ceil(items / per));
+}
+function getIdx(slider){
+  return parseInt(getComputedStyle(slider).getPropertyValue('--slider-index')) || 0;
+}
+function setIdx(slider, idx){
+  slider.style.setProperty('--slider-index', idx);
+  slider.style.transform = `translateX(calc(${idx} * -100%))`;
+}
+function setProgress(pb, idx){
+  pb.querySelectorAll('.progress-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+}
+function calculateProgressBar(progressBar){
+  progressBar.innerHTML = "";
+  const row    = progressBar.closest('.scroll__row');
+  const slider = row.querySelector('.slider, .poster__slider, .movie__slider, .top__movie__slider');
+  if (!slider) return;
+
+  const pgs   = pagesFor(slider);
+  let idx     = getIdx(slider);
+  if (idx >= pgs){ idx = pgs - 1; setIdx(slider, idx); }
+
+  for (let i=0;i<pgs;i++){
+    const dot = document.createElement('div');
+    dot.className = 'progress-item' + (i===idx?' active':'');
+    progressBar.append(dot);
   }
-  if (handle != null) onHandleClick(handle);
+
+  // Auto-hide arrows if only one page
+  row.querySelectorAll('.handle').forEach(h => h.style.display = (pgs > 1 ? '' : 'none'));
+}
+
+// initial build + on resize
+document.querySelectorAll('.progress-bar').forEach(calculateProgressBar);
+window.addEventListener('resize', throttle(() => {
+  document.querySelectorAll('.progress-bar').forEach(calculateProgressBar);
+}, 250));
+
+// onHandleClick (wraps around pages)
+function onHandleClick(handle){
+  const row     = handle.closest('.scroll__row');
+  const slider  = row.querySelector('.slider, .poster__slider, .movie__slider, .top__movie__slider');
+  const pb      = row.querySelector('.progress-bar');
+  if (!slider || !pb) return;
+
+  const pgs = pagesFor(slider);
+  let idx   = getIdx(slider);
+
+  if (handle.classList.contains('left-handle')) {
+    idx = (idx <= 0) ? (pgs - 1) : (idx - 1);
+  } else {
+    idx = (idx >= pgs - 1) ? 0 : (idx + 1);
+  }
+
+  setIdx(slider, idx);
+  setProgress(pb, idx);
+}
+
+// bind handles directly (bullet-proof)
+document.querySelectorAll('.scroll__row .handle').forEach(h => {
+  h.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    onHandleClick(h);
+  });
 });
 
-const throttleProgressBar = throttle(() => {
-  document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
-}, 250);
-window.addEventListener("resize", throttleProgressBar);
-
-document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
-
-function calculateProgressBar(progressBar) {
-  progressBar.innerHTML = "";
-  const slider = progressBar.closest(".scroll__row").querySelector(".slider, .poster__slider, .movie__slider, .top__movie__slider");
-  const itemCount = slider.children.length;
-  const itemsPerScreen = parseInt(getComputedStyle(slider).getPropertyValue("--items-per-screen"));
-  let sliderIndex = parseInt(getComputedStyle(slider).getPropertyValue("--slider-index"));
-  const progressBarItemCount = Math.ceil(itemCount / itemsPerScreen);
-
-  if (sliderIndex >= progressBarItemCount) {
-    slider.style.setProperty("--slider-index", progressBarItemCount - 1);
-    sliderIndex = progressBarItemCount - 1;
-  }
-
-  for (let i = 0; i < progressBarItemCount; i++) {
-    const barItem = document.createElement("div");
-    barItem.classList.add("progress-item");
-    if (i === sliderIndex) {
-      barItem.classList.add("active");
-    }
-    progressBar.append(barItem);
-  }
-}
-
-function onHandleClick(handle) {
-  const scrollRow = handle.closest(".scroll__row");
-  const progressBar = scrollRow.querySelector(".progress-bar");
-  const slider = scrollRow.querySelector(".slider, .poster__slider, .movie__slider, .top__movie__slider");
-
-  const itemCount = slider.children.length;
-  const itemsPerScreen = parseInt(getComputedStyle(slider).getPropertyValue("--items-per-screen"));
-  let sliderIndex = parseInt(getComputedStyle(slider).getPropertyValue("--slider-index"));
-  const progressBarItemCount = Math.ceil(itemCount / itemsPerScreen); // <-- groups, not items
-
-  if (handle.classList.contains("left-handle")) {
-    if (sliderIndex <= 0) {
-      sliderIndex = progressBarItemCount - 1;
-    } else {
-      sliderIndex--;
-    }
-  } else if (handle.classList.contains("right-handle")) {
-    if (sliderIndex >= progressBarItemCount - 1) {
-      sliderIndex = 0;
-    } else {
-      sliderIndex++;
-    }
-  }
-
-  slider.style.setProperty("--slider-index", sliderIndex);
-  slider.style.transform = `translateX(calc(${sliderIndex} * -100%))`;
-
-  progressBar.querySelectorAll(".progress-item").forEach((item, idx) => {
-    item.classList.toggle("active", idx === sliderIndex);
-  });
-}
-
-function throttle(cb, delay = 1000) {
-  let shouldWait = false;
-  let waitingArgs;
-  const timeoutFunc = () => {
-    if (waitingArgs == null) {
-      shouldWait = false;
-    } else {
-      cb(...waitingArgs);
-      waitingArgs = null;
-      setTimeout(timeoutFunc, delay);
-    }
+/* ========== THROTTLE HELPER ========== */
+function throttle(cb, delay = 1000){
+  let wait = false, nextArgs;
+  const run = () => {
+    if (!nextArgs){ wait = false; return; }
+    cb(...nextArgs); nextArgs = null; setTimeout(run, delay);
   };
-
   return (...args) => {
-    if (shouldWait) {
-      waitingArgs = args;
-      return;
-    }
-
-    cb(...args);
-    shouldWait = true;
-    setTimeout(timeoutFunc, delay);
+    if (wait){ nextArgs = args; return; }
+    cb(...args); wait = true; setTimeout(run, delay);
   };
 }
+
+/* ========== SWIPE (touch + mouse) — keeps tap-to-lightbox working ========== */
+(() => {
+  const ROWS = document.querySelectorAll('.scroll__row');
+  const SLIDER_SEL = '.slider, .poster__slider, .movie__slider, .top__movie__slider';
+
+  const THRESHOLD_FRAC = 0.12;  // 12% width or a flick
+  const CLICK_SLOP_PX  = 8;     // below this = tap
+  const FLICK_PX_MS    = 0.6;   // px/ms
+
+  ROWS.forEach(row => {
+    const slider   = row.querySelector(SLIDER_SEL);
+    const progress = row.querySelector('.progress-bar');
+    const container = row.querySelector('.scroll__container') || row;
+    if (!slider || !progress) return;
+
+    // let drags start on thumbs (no ghost image)
+    slider.querySelectorAll('img, a, video').forEach(el => el.setAttribute('draggable','false'));
+    slider.addEventListener('dragstart', e => e.preventDefault());
+
+    let dragging=false, startX=0, moved=0, startTime=0, startIdx=0, didSwipe=false, downTarget=null;
+    const width   = () => Math.max(1, container.getBoundingClientRect().width);
+    const pxToPct = (px) => (px / width()) * 100;
+
+    function beginDrag(x, target){
+      if (target && target.closest && target.closest('.handle')) return; // let arrows click
+      dragging=true; startX=x; moved=0; startTime=performance.now(); startIdx=getIdx(slider);
+      didSwipe=false; downTarget=target;
+      slider.classList.add('dragging'); slider.style.willChange='transform';
+    }
+    function followDrag(x){
+      if (!dragging) return;
+      const dx = x - startX; moved=dx;
+      slider.style.transform = `translateX(calc(${startIdx} * -100% + ${pxToPct(dx)}%))`;
+    }
+    function endDrag(){
+      if (!dragging) return;
+      dragging=false; slider.classList.remove('dragging'); slider.style.willChange='';
+    }
+    function settle(dx, dt){
+      const v = Math.abs(dx) / Math.max(1, dt);
+      const passed = Math.abs(dx) > width() * THRESHOLD_FRAC;
+      const flick  = v > FLICK_PX_MS;
+      let idx = startIdx;
+      if (passed || flick){ didSwipe=true;
+        const pgs = pagesFor(slider);
+        idx = dx < 0 ? (startIdx + 1) % pgs : (startIdx - 1 + pgs) % pgs;
+      }
+      setIdx(slider, idx); setProgress(progress, idx);
+    }
+
+    slider.addEventListener('pointerdown', (e) => {
+      if (e.pointerType==='mouse' && e.button!==0) return;
+      beginDrag(e.clientX, e.target);
+      slider.setPointerCapture?.(e.pointerId);
+    }, { passive:true });
+
+    slider.addEventListener('pointermove', (e) => { if (dragging) followDrag(e.clientX); }, { passive:true });
+
+    slider.addEventListener('pointerup', () => {
+      if (!dragging) return;
+      const dx = moved; const dt = performance.now() - startTime;
+      endDrag();
+      if (Math.abs(dx) <= CLICK_SLOP_PX){
+        // tap: trigger the thing you pressed (anchors/lightbox)
+        const tappable = downTarget && downTarget.closest
+          ? downTarget.closest('a, button, [data-lightbox], [data-vimeo], [data-href]')
+          : null;
+        if (tappable && typeof tappable.click === 'function') tappable.click();
+        setIdx(slider, startIdx); setProgress(progress, startIdx); didSwipe=false;
+      } else {
+        settle(dx, dt);
+      }
+    }, { passive:true });
+
+    slider.addEventListener('pointercancel', () => {
+      endDrag(); setIdx(slider, startIdx); setProgress(progress, startIdx); didSwipe=false;
+    }, { passive:true });
+
+    // After a real swipe, block click-through on slider (never the arrows)
+    slider.addEventListener('click', (e) => {
+      if (e.target.closest('.handle')) return;
+      if (didSwipe){ e.preventDefault(); e.stopPropagation(); }
+      didSwipe=false;
+    }, { capture:true });
+  });
+})();
 </script>
 <!-- end of script for the scrolling feature  -->
 

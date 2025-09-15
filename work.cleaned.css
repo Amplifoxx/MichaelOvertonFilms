@@ -1,22 +1,9 @@
-
-/* this is for the scrolling side handles to match up with boxes */
-*, *::after, *::before {
-    box-sizing: border-box;
-  }
-
-  :root {
+:root{
     --handle-size:3rem;
     --img-gap: 0rem;
   }
-  /* end of scrolling side handles */
 
-* {
-    margin: 0;
-    box-sizing: border-box;
-    padding: 0px;
-}
-
-html, body {
+html, body{
     font-family: Inter_Regular;
   background-attachment: fixed;
   background-size: cover;
@@ -35,51 +22,26 @@ html, body {
   background-attachment: fixed;  
 }
 
-.nav__bottom-bar {
-  position: fixed;
-  top: 50px; /* right below your 50px-tall nav */
-  width: 100%;
-  height: 20px; /* adjust as needed */
-  background-color: #cfb4a1;
-  color: rgba(255, 255, 255, 0.986);
-  margin-top: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  font-family: Inter_Regular;
-  font-size: 14px;
-}
-
-.nav__bottom-content {
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 20px;
-  text-align: center;
-}
-
-body::-webkit-scrollbar {
+body::-webkit-scrollbar{
     display: none;
 }
 
-
-.scroll__row {
+.scroll__row{
   margin-top: -110px;
 }
 
-.spacer {
+.spacer{
   height: 86px;
 }
 
-.spacer_2 {
+.spacer_2{
   height: 40px;
 }
 
-
-.sections {
+.sections{
     display: flex;
     justify-content: left;
-   padding-left: 0px;
+   padding-left: 16px;
     font-size: 30px;
     font-family: Gilroy_Medium;
     font-weight: 0;
@@ -90,68 +52,26 @@ body::-webkit-scrollbar {
   -webkit-text-fill-color: transparent;
 }
 
-.scroll__header__top {
+.scroll__header__top{
   margin-top: 50px;
 }
 
-/* STOP HERE graphics  */
-
-.separator__bar {
-    display:flex;
-    height: 100px;
-}
-
-
-
-.row {
-    color:  #fff;
-    margin-left: 30px;
-    margin-top: 80px;
-    z-index: 99;
-}
-
-
-
-
-
-    .navbar {
-        position: fixed;
-        top: 0px;
-        width: 100%;
-        background-color: #000000;
-        color: rgb(0, 0, 0);
-        padding: 0px;
-        display: flex;
-        justify-content: right;
-        align-items: center;
-        z-index: 1000;
-      }
-    
-      .navbar a {
+.navbar a{
         color:#f0ffbf;
         text-decoration: none;
         margin: 0 1rem;
       }
-    
-      .navbar a:hover {
+
+.navbar a:hover{
         text-decoration: underline;
       }
-    
-      .content {
-        padding: 0px 0px 0px; /* Add top padding to avoid content being hidden under navbar */
-      }
-    
-      .nav__logo {
-        width: 100px;
-        object-fit: contain;
-    }
-    
-    .nav__avatar {
+
+.nav__avatar{
         width: 30px;
         object-fit: contain;
     }
-    
-    .nav {
+
+.nav{
         position: fixed;
         top: 0;
         width: 100%;
@@ -166,14 +86,8 @@ body::-webkit-scrollbar {
         background: linear-gradient(270deg, #000000 00%, #000000 100%);/* #ffb000 is Current yellow */
         #ffb000
     }
-    
-    /* This is when you scroll, if on*/
-    .nav__black {
-        background-color: #fbc81d;
-        z-index: 2;
-    }
-    
-    .nav__title {
+
+.nav__title{
       cursor: pointer;
       color: #ffffff00;
        background: -webkit-linear-gradient(90deg,#ffffff, #cecece);
@@ -194,7 +108,7 @@ body::-webkit-scrollbar {
       z-index: 2;
 }
 
-.contactBtn {
+.contactBtn{
   cursor: pointer;
   color: #ffffff00;
   background: -webkit-linear-gradient(90deg,#ffffff, #cecece);
@@ -211,8 +125,8 @@ body::-webkit-scrollbar {
   top: 50%;
   transform: translateY(-50%);
 }
-    
-        .nav__page {
+
+.nav__page{
             cursor: pointer;
             color: #fff;
             font-family: arial;
@@ -224,12 +138,8 @@ body::-webkit-scrollbar {
             border: none;
             background: transparent;
         }
-    
-    
-        .nav__buttons {
-            margin-top:0px;
-        }
-        .nav__button {
+
+.nav__button{
             cursor: pointer;
             color: #ffffff00;
        background: -webkit-linear-gradient(90deg,#424242, #151515);
@@ -246,8 +156,8 @@ body::-webkit-scrollbar {
             font-family: Gilroy_Bold;
             font-size: 16px;
             }
-    
-            .nav__button:hover {
+
+.nav__button:hover{
               padding-left: 2rem;
               padding-right: 2rem;
               margin-right: 15px;
@@ -257,8 +167,8 @@ body::-webkit-scrollbar {
               font-size: 20px;
     
             }
-    
-    .nav__spacer {
+
+.nav__spacer{
         display: flex;
         justify-content: flex-start;
         /* adjustment */
@@ -268,28 +178,17 @@ body::-webkit-scrollbar {
         height: 200px;
     }
 
-.hide {
+/* This is for the titles to fade in over the preview videos */
 
-    display:flex;
-    object-fit: cover;
-    color: #fbc81d;
-    z-index: 99;
-    position: absolute;
-  }
-  
-
-
-  /* This is for the titles to fade in over the preview videos */
-
-  .preview__wrapper {
+  .preview__wrapper{
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
   }
-  
-  .preview__overlay {
+
+.preview__overlay{
     position: absolute;
     bottom: 10%;
     right: 5%;
@@ -299,8 +198,8 @@ body::-webkit-scrollbar {
     pointer-events: none;
     opacity: 1; /* <- keep the overlay itself always visible */
   }
-  
-  .preview__title {
+
+.preview__title{
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -312,7 +211,7 @@ body::-webkit-scrollbar {
     background: rgba(0, 0, 0, 0.0);
   }
 
- .preview__client {
+.preview__client{
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -323,73 +222,57 @@ body::-webkit-scrollbar {
     font-size: 12px;
     background: rgba(0, 0, 0, 0.0);
   }
-  
-  /* When hover happens */
-  .oldvideoPreview__box:hover .preview__title {
+
+/* When hover happens */
+  .oldvideoPreview__box:hover .preview__title{
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0s; /* Title appears immediately */
   }
-  
-  .oldvideoPreview__box:hover .preview__client {
+
+.oldvideoPreview__box:hover .preview__client{
     opacity: 1;
     transform: translateY(0);
     transition-delay: 0.15s; /* Client appears 150ms later */
   }
 
-/* End of Titles fading in over preview */
+@font-face{ font-family: Galano Grotesque; font-weight: bold; src: url('Galano_Grotesque_ExtraBold.otf');}
 
-  /* custom fonts */
+@font-face{ font-family: DIN PRO; font-weight: bold; src: url('D-DIN-PRO-700-Bold.otf');}
 
+@font-face{ font-family: DIN PRO SEMIBOLD; font-weight: normal; src: url('D-DIN-PRO-600-SemiBold.otf');}
 
-  
+@font-face{ font-family: DIN PRO EXTRABOLD; font-weight: normal; src: url('D-DIN-PRO-800-ExtraBold.otf');}
 
-/* Galano */
-@font-face { font-family: Galano Grotesque; src: url('Galano_Grotesque.otf'); } 
-@font-face { font-family: Galano Grotesque; font-weight: bold; src: url('Galano_Grotesque_ExtraBold.otf');}
+@font-face{ font-family: Perpetua; font-weight: normal; src: url('perpeta.ttf');}
 
-/* DIN PRO */
-@font-face { font-family: DIN PRO; font-weight: normal; src: url('D-DIN-PRO-400-Regular.otf'); } 
-@font-face { font-family: DIN PRO; font-weight: bold; src: url('D-DIN-PRO-700-Bold.otf');}
-@font-face { font-family: DIN PRO SEMIBOLD; font-weight: normal; src: url('D-DIN-PRO-600-SemiBold.otf');}
-@font-face { font-family: DIN PRO EXTRABOLD; font-weight: normal; src: url('D-DIN-PRO-800-ExtraBold.otf');}
+@font-face{ font-family: Inter_SemiBold; src: url('Inter-SemiBold.ttf'); }
 
-@font-face { font-family: Perpetua; font-weight: normal; src: url('perpeta.ttf');}
+@font-face{ font-family: Inter_Black; src: url('Inter-Black.ttf'); }
 
+@font-face{ font-family: Inter_Regular; src: url('Inter-Regular.ttf'); }
 
-/* Inter*/
-@font-face { font-family: Inter_Bold; src: url('Inter-Bold.ttf'); } 
-@font-face { font-family: Inter_SemiBold; src: url('Inter-SemiBold.ttf'); } 
-@font-face { font-family: Inter_Black; src: url('Inter-Black.ttf'); } 
-@font-face { font-family: Inter_Regular; src: url('Inter-Regular.ttf'); } 
-@font-face { font-family: Inter_Medium; src: url('Inter-Medium.ttf'); } 
+@font-face{ font-family: Inter_Medium; src: url('Inter-Medium.ttf'); }
 
- /* Apple Garamond */
-@font-face { font-family: Apple_Garamond_Bold; src: url('Fonts/Apple_Garamond/AppleGaramond-Bold.ttf'); } 
-@font-face { font-family: Apple_Garamond_BoldItalic; src: url('Fonts/Apple_Garamond/AppleGaramond-BoldItalic.ttf'); } 
-@font-face { font-family: Apple_Garamond_Italic; src: url('Fonts/Apple_Garamond/AppleGaramond-Italic.ttf'); } 
-@font-face { font-family: Apple_Garamond_Light; src: url('Fonts/Apple_Garamond/AppleGaramond-Light.ttf'); } 
-@font-face { font-family: Apple_Garamond_LightItalic; src: url('Fonts/Apple_Garamond/AppleGaramond-LightItalic.ttf'); } 
-@font-face { font-family: Apple_Garamond; src: url('Fonts/Apple_Garamond/AppleGaramond.ttf'); } 
+@font-face{ font-family: Apple_Garamond_BoldItalic; src: url('Fonts/Apple_Garamond/AppleGaramond-BoldItalic.ttf'); }
 
+@font-face{ font-family: Apple_Garamond_Italic; src: url('Fonts/Apple_Garamond/AppleGaramond-Italic.ttf'); }
 
-  /* Gilroy */
-@font-face { font-family: Gilroy_Regular; src: url('Fonts/Gilroy/Gilroy-Regular.ttf'); } 
-@font-face { font-family: Gilroy_Bold; src: url('Fonts/Gilroy/Gilroy-Bold.ttf'); } 
-@font-face { font-family: Gilroy_Medium; src: url('Fonts/Gilroy/Gilroy-Medium.ttf'); } 
-@font-face { font-family: Gilroy_Black; src: url('Fonts/Gilroy/Gilroy-Black.ttf'); } 
-@font-face { font-family: Gilroy_Light; src: url('Fonts/Gilroy/Gilroy-Light.ttf'); } 
+@font-face{ font-family: Apple_Garamond_Light; src: url('Fonts/Apple_Garamond/AppleGaramond-Light.ttf'); }
 
+@font-face{ font-family: Apple_Garamond_LightItalic; src: url('Fonts/Apple_Garamond/AppleGaramond-LightItalic.ttf'); }
 
- /* Steel Tongs */
- @font-face { font-family: SteelTongs; src: url('SteelTongs.ttf'); } 
+@font-face{ font-family: Apple_Garamond; src: url('Fonts/Apple_Garamond/AppleGaramond.ttf'); }
 
- /* Cera */
- @font-face { font-family: CeraPro-Medium; src: url('Fonts/CeraPro/CeraPro-Medium.otf'); } 
+@font-face{ font-family: Gilroy_Bold; src: url('Fonts/Gilroy/Gilroy-Bold.ttf'); }
 
+@font-face{ font-family: Gilroy_Medium; src: url('Fonts/Gilroy/Gilroy-Medium.ttf'); }
 
+@font-face{ font-family: Gilroy_Black; src: url('Fonts/Gilroy/Gilroy-Black.ttf'); }
 
- .lightbox {
+@font-face{ font-family: Gilroy_Light; src: url('Fonts/Gilroy/Gilroy-Light.ttf'); }
+
+.lightbox{
   position: fixed;
   top: 0;
   left: 0;
@@ -403,11 +286,11 @@ body::-webkit-scrollbar {
   transition: opacity 0.3s ease;
 }
 
-.lightbox.hidden {
+.lightbox.hidden{
   display: none;
 }
 
-.lightbox-content {
+.lightbox-content{
   position: relative;
   width: 80%;
   max-width: 960px;
@@ -416,13 +299,13 @@ body::-webkit-scrollbar {
   overflow: hidden;
 }
 
-.lightbox-content iframe {
+.lightbox-content iframe{
   width: 100%;
   height: 100%;
   border: none;
 }
 
-#lightbox-close {
+#lightbox-close{
   position: absolute;
   top: -40px;
   right: 0;
@@ -434,54 +317,12 @@ body::-webkit-scrollbar {
 }
 
 .lightbox-content{ aspect-ratio:16/9; background:#000; }
+
 .lightbox-content.ratio-239{ aspect-ratio:2.39/1; }
 
+/* video player on individual pages */
 
- /*landing page CSS */
-
- .landing__button {
-    cursor: pointer;
-    color:  white;
-    outline: none;
-    border: none;
-    font-weight: 700;
-    font-family: Inter_Bold;
-    border-radius: 50px;
-    padding: 10px 50px;
-    background-color: rgba(1, 1, 1, 0.2);
-    margin-top: 0px;
- }
-
- .landing__button:hover {
-    background-color: #fbc81d;
-    color: #111;
- }
-
- .landing__container {
-    display: flex;
-    object-fit: contain;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-image: url('images/landing page/background Black and White.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
- }
-
- .landing__logo {
-    vertical-align: 50%;
-    font-size: 24px;
-    font-family: Inter_Black;
-    font-weight: bold;
-    color: #fbc81d;
-    margin-top: -100px;
- }
-
- /* video player on individual pages */
-
- .video__container__youtube {
+ .video__container__youtube{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -492,33 +333,23 @@ body::-webkit-scrollbar {
 
  }
 
- /* footer here  */
- .footer {
-    background-color: #fbc81d;
-    display: none;
-    height: 100px;
- }
+/* this is all for the sliders side to side  */
 
-
-
- /* this is all for the sliders side to side  */
-
- .scroll__container {
+ .scroll__container{
     display: flex;
     justify-content: center;
     overflow: hidden;
     padding-bottom: 50px;
     margin-top: -30p;
     padding-top: 10px;
-    padding-left: 0px;
-    padding-right:0px;
-    margin-left: 0px;
+    padding-left: 0;
+    padding-right:0;
     overflow-x: hidden; /* Or auto if you want natural scroll */
 
     
   }
 
-  .oldvideoPreview{
+.oldvideoPreview{
     display: flex;
     object-fit: fill;
     min-width: 100%;
@@ -526,7 +357,7 @@ body::-webkit-scrollbar {
     
   }
 
-  .movie__slider {
+.movie__slider{
     --items-per-screen: 4;
     --slider-index: 0;
     display: flex;
@@ -534,13 +365,12 @@ body::-webkit-scrollbar {
     transition: transform 300ms ease-in-out;
     transform: translateX(calc(var(--slider-index) * -100%));
     width: max-content; /* <-- allow it to grow to fit all items */
-    padding: 0 10px; /* Adjust as needed */
+    padding: 0 16px; /* Adjust as needed */
     gap: 8px; /* to expand gap and make everything work, double it for the padding above then add the two numbers together for the margin-right below */
     margin-right: 24px;
   }
 
-
-  .movie__slider .oldvideoPreview, .movie__slider .oldvideoPreview__box {
+.movie__slider .oldvideoPreview, .movie__slider .oldvideoPreview__box{
     flex: 0 0 calc(100% / var(--items-per-screen));
     max-width: calc(100% / var(--items-per-screen));
     aspect-ratio: 16 / 9;
@@ -553,14 +383,14 @@ body::-webkit-scrollbar {
     box-shadow: 00px 4px 7px rgba(0, 0, 0, 0.4); /* <-- Drop shadow */
   }
 
-  .movie__slider .oldvideoPreview:hover {
+.movie__slider .oldvideoPreview:hover{
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* <-- Drop shadow */
     border: solid #ffffff 0px;
     border-radius: 0px;
     
   }
 
-  .oldvideoPreview__box {
+.oldvideoPreview__box{
   display: flex;
   width: 100%;
   object-fit: cover;
@@ -575,15 +405,12 @@ body::-webkit-scrollbar {
   transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-.oldvideoPreview__box:hover {
+.oldvideoPreview__box:hover{
   transform: scale(1.01);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* <-- Drop shadow */
 }
 
-  
-
-
-  .poster__slider {
+.poster__slider{
     --items-per-screen: 7;
     --slider-index: 0;
     display: flex;
@@ -592,9 +419,8 @@ body::-webkit-scrollbar {
     transform: translateX(calc(var(--slider-index) * -100%));
     transition: transform 250ms ease-in-out;
   }
-  
-  
-  .poster__slider > img {
+
+.poster__slider > img{
     flex: 0 0 calc(100% / var(--items-per-screen));
     max-width: calc(100% / var(--items-per-screen));
     aspect-ratio: 9 / 14;
@@ -603,17 +429,8 @@ body::-webkit-scrollbar {
     border-radius: 9.5px;
     
   }
-  
 
-  .scroll__header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: .5rem calc(var(--img-gap) * 2 + var(--handle-size));
-    align-items: center;
-  }
-
-  .scroll__header__top {
+.scroll__header__top{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -621,19 +438,14 @@ body::-webkit-scrollbar {
     align-items: center;
     
   }
-  
-  .scroll__title {
-    font-size: 4rem;
-    margin: 0;
-  }
-  
-  .progress-bar {
+
+.progress-bar{
     display: flex;
     gap: .25rem;
     opacity: 1;
   }
-  
-  .progress-item {
+
+.progress-item{
     flex: 0 0 1.5rem;
     min-width: 1.5rem;
     height: 1px;
@@ -642,36 +454,20 @@ body::-webkit-scrollbar {
     border-radius: 30px;
   }
 
-  
-  .progress-item.active {
+.progress-item.active{
     background-color: #ffaa00;
     border-radius: 30px;
     margin-right: 0px;
   }
-  
-  
-  
-  /* Default: mobile-first - show 1 item per screen */
-  @media (min-width: 0px) {
 
-    
-        .movie__slider, .slider {
-              --items-per-screen: 1;
-              display: flex;
-              padding: 0px; /* Adjust as needed */
-              gap: 4px; /* to expand gap and make everything work, double it for the padding above then add the two numbers together for the margin-right below */
-              margin-right:0px;
-              }
-
-              .scroll__header__top {
+.scroll__header__top{
                 display: flex;
                 flex-direction: column;
                 align-items: center; /* center items horizontally */
                 text-align: center;
               }
-            
 
-              .sections {
+.sections{
               display: flex;
              justify-content: center;
              margin-left: 0px;
@@ -687,7 +483,7 @@ body::-webkit-scrollbar {
               -webkit-text-fill-color: transparent;
               }
 
-              .progress-item {
+.progress-item{
                 flex: 0 0 0.2rem;
                 min-width: .4rem;
                 height: 2px;
@@ -695,15 +491,17 @@ body::-webkit-scrollbar {
                 opacity: 1;
                 border-radius: 30px;
               }
-              .progress-bar {
+
+.progress-bar{
                 display: flex;
                 justify-content: center;
                 gap: .25rem;
                 opacity: 1;
               }
-      }
 
-      .carousel {
+}
+
+      .carousel{
       position: relative;
       overflow: hidden;
       height: 91vh;
@@ -711,22 +509,12 @@ body::-webkit-scrollbar {
       min-height: 320px;
     }
 
-/* iOS-friendly touch + desktop-friendly drag */
-.carousel { touch-action: pan-y; cursor: grab; user-select: none; }
-.carousel.grabbing { cursor: grabbing; }
-/* no easing while dragging so it tracks your finger */
-.carousel-track.dragging { transition: none !important; }
-/* keep dots above full-slide link (override earlier z:0) */
-.carousel-dots { z-index: 30 !important; }
-/* only disabled while finger/mouse is down */
-.carousel .slide-link.disable-clicks { pointer-events: none !important; }
-
-    .carousel-track {
+.carousel-track{
       display: flex;
       transition: transform 0.8s ease-in-out;
     }
 
-    .carousel-slide {
+.carousel-slide{
       min-width: 100%;
       height: 100%;
       position: relative;
@@ -735,28 +523,28 @@ body::-webkit-scrollbar {
       flex-shrink: 0;
     }
 
-    /* overlay gradient for text readability */
-    .carousel-slide::before {
+/* overlay gradient for text readability */
+    .carousel-slide::before{
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(to right, rgba(0,0,0,0.7) 30%, transparent);
     }
 
-    .carousel-content {
+.carousel-content{
       position: absolute;
       bottom: 20%;
       left: 5%;
       z-index: 2;
     }
 
-    .carousel-content h2 {
+.carousel-content h2{
       font-size: 3rem;
       margin: 0;
     }
 
-    /* dots navigation */
-    .carousel-dots {
+/* dots navigation */
+    .carousel-dots{
       position: absolute;
       bottom: 20px;
       left: 50%;
@@ -766,7 +554,7 @@ body::-webkit-scrollbar {
       z-index: 3;
     }
 
-    .carousel-dots button {
+.carousel-dots button{
       width: 12px;
       height: 12px;
       border-radius: 50%;
@@ -775,26 +563,11 @@ body::-webkit-scrollbar {
       cursor: pointer;
     }
 
-    .carousel-dots button.active {
+.carousel-dots button.active{
       background: #fff;
     }
 
-    
-
-/* Tablet: show 2 */
-@media (min-width: 600px) {
-
-
-  .movie__slider, .slider {
-    --items-per-screen: 2;
-    padding: 0 px; /* Adjust as needed */
-    gap: 8px; /* to expand gap and make everything work, double it for the padding above then add the two numbers together for the margin-right below */
-    margin-right: 0px;
-    margin-bottom: 0px;
-    padding-right: 16px !important;
-  }
-
-  .scroll__header__top {
+.scroll__header__top{
     display: flex;
     flex-direction: row;
     align-items: center; /* center items horizontally */
@@ -803,8 +576,7 @@ body::-webkit-scrollbar {
     margin-top: 80px;
   }
 
-
-  .sections {
+.sections{
   display: flex;
  justify-content: center;
  margin-left: px;
@@ -820,14 +592,14 @@ body::-webkit-scrollbar {
   -webkit-text-fill-color: transparent;
   }
 
-  .progress-bar {
+.progress-bar{
     display: flex;
     gap: .25rem;
     opacity: 1;
     border-radius: 30px;
   }
-  
-  .progress-item {
+
+.progress-item{
     flex: 0 0 1.5rem;
     min-width: 1.5rem;
     height: 4px;
@@ -837,67 +609,23 @@ body::-webkit-scrollbar {
   }
 
 }
-
-/* Tablet Large: show 3 */
-@media (min-width: 800px) {
-  .movie__slider, .slider {
-    --items-per-screen: 3;
-    padding: 0px; /* Adjust as needed */
-    gap: 8px; /* to expand gap and make everything work, double it for the padding above then add the two numbers together for the margin-right below */
-    margin-right: 0px;
-    padding-right: 24px !important;
-    
-  }
-
-
-}
-
-/* Small desktop: show 4 */
-@media (min-width: 1000px) {
-  .movie__slider, .slider {
-    --items-per-screen: 4;
-    padding: 0 0px; /* Adjust as needed */
-    gap: 8px; /* to expand gap and make everything work, double it for the padding above then add the two numbers together for the margin-right below */
-    margin-right: 0px;
-  }
-
-}
-/* Medium-Large desktop: show 8 */
-@media (min-width: 2000px) {
-  .movie__slider, .slider {
-    --items-per-screen: 5;
-    padding: 0 16px; /* Adjust as needed */
-    gap: 8px; /* to expand gap and make everything work, double it for the padding above then add the two numbers together for the margin-right below */
-    margin-right: 0px;
-  }
-}
-
-/* Large desktop: show 8 */
-@media (min-width: 3000px) {
-  .movie__slider, .slider {
-    --items-per-screen: 8;
-    padding: 0 16px; /* Adjust as needed */
-    gap: 8px; /* to expand gap and make everything work, double it for the padding above then add the two numbers together for the margin-right below */
-    margin-right: 0px;
-  }
-}
   
   
-  .left {
+  .left{
     transform: rotate(-135deg);
     -webkit-transform: rotate(135deg);
     margin-top: 30px;
     margin-right: 0px;
   }
-  
-  .right {
+
+.right{
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
     margin-top: 30px;
     margin-right: 0px;
   }
-  
-  .arrow {
+
+.arrow{
     border: solid #fff;
     opacity: 0;
     border-width: 0 4px 4px 0;
@@ -908,8 +636,8 @@ body::-webkit-scrollbar {
     transition: 200ms ease-in-out;
     
   }
-  
-  .handle:hover .arrow {
+
+.handle:hover .arrow{
     cursor: pointer;
     border: solid #ffaa00;
     border-width: 0 4px 4px 0;
@@ -918,7 +646,7 @@ body::-webkit-scrollbar {
     opacity: 1;
   }
 
-  .handle {
+.handle{
     border: none;
     border-radius: 0px;
     flex-grow:0;
@@ -938,53 +666,46 @@ body::-webkit-scrollbar {
     opacity: 0;
     
   }
-  
-  .left-handle {
+
+.left-handle{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
-  
-  .right-handle {
+
+.right-handle{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  
-  /* .handle:hover,
-  .handle:focus {
+
+/* .handle:hover,
+  .handle:focus{
     background-color: rgba(255, 255, 255, .1);
-  } */
-  
-  .scroll__text {
-    transition: transform 150ms ease-in-out;
   }
 
-  .handle:hover .text,
-  .handle:focus .text, {
+.handle:hover .text,
+  .handle:focus .text,{
     transform: scale(1.2);
     border: solid #fbc81d;
   }
-  
 
-  .scroll__container:hover .arrow {
+.scroll__container:hover .arrow{
     opacity: 1;
   }
-  .scroll__container:hover .handle {
+
+.scroll__container:hover .handle{
     opacity: 1;
     background-color: rgba(255, 255, 255, .0);
   }
 
-
-
-
-  .carousel-track{
+.carousel-track{
     display:flex;
     transition:transform .8s ease-in-out;
     height:100%;
     
   }
 
-  .carousel-slide img,
-.carousel-slide video {
+.carousel-slide img,
+.carousel-slide video{
   position: absolute;
   inset: 0;
   width: 100%;
@@ -994,13 +715,13 @@ body::-webkit-scrollbar {
   display: block;
 }
 
-  .carousel-slide{
+.carousel-slide{
     min-width:100%;
     position:relative;
     height:100%;
   }
 
-  .carousel-slide img{
+.carousel-slide img{
     position:absolute;
     inset:0;
     width:100%;
@@ -1010,7 +731,7 @@ body::-webkit-scrollbar {
     
   }
 
-  .carousel-slide::before{
+.carousel-slide::before{
     content:"";
     position:absolute;
     inset:0;
@@ -1018,7 +739,7 @@ body::-webkit-scrollbar {
     z-index:11;
   }
 
-  .carousel-content{
+.carousel-content{
   position: absolute;
   left: 5%;
   bottom: 12%;
@@ -1030,7 +751,7 @@ body::-webkit-scrollbar {
    z-index: 20;
   }
 
-  .carousel-content{
+.carousel-content{
   position: absolute;
   left: 5%;
   bottom: 12%;
@@ -1042,14 +763,12 @@ body::-webkit-scrollbar {
    z-index: 20;
   }
 
-  .carousel-content h2 {
+.carousel-content h2{
     line-height: .80;
   width:100%;  
   }
 
-
-
-  .carousel-content p{
+.carousel-content p{
    color: #ffffff;
    font-family: Gilroy_Regular;
    font-size: 16px;
@@ -1058,13 +777,11 @@ body::-webkit-scrollbar {
   margin-top: 10px;
   }
 
-
-
-.carousel-content p:last-child {
+.carousel-content p:last-child{
   text-align: left;
 }
 
- .carousel-content-1 {
+.carousel-content-1{
   position: absolute;
   left: 5%;
   bottom: 10%;
@@ -1078,12 +795,12 @@ body::-webkit-scrollbar {
   box-sizing: border-box;   /* ensures padding doesn’t add overflow */
 }
 
-.carousel-content-1 h2 {
+.carousel-content-1 h2{
   margin: 0;
   font-size: clamp(14px, 8vw, 50px);  /* scales with viewport width */
 }
 
-.carousel-content-1 p {
+.carousel-content-1 p{
   color: #fff;
   font-family: Gilroy_Regular;
   font-size: clamp(14px, 1vw, 32px);  /* scale paragraph text too */
@@ -1093,18 +810,16 @@ body::-webkit-scrollbar {
 }
 
 @media (max-width: 990px){
-  .carousel-content-1{ width: min(100%, 400px);
+.carousel-content-1{ width: min(100%, 400px);
     text-align: justify;
-  text-justify: ; 
-  
-  
-  }
+  text-justify: ;}
 }
 
-  .carousel-content h2{margin:0;
+.carousel-content h2{margin:0;
     font-size:clamp(45px,55vw,56px);
   }
-  .carousel-dots{position:absolute;
+
+.carousel-dots{position:absolute;
     left:50%;bottom:16px;
     transform:translateX(-50%);
     display:flex;
@@ -1112,7 +827,7 @@ body::-webkit-scrollbar {
     z-index:1;
   }
 
-  .carousel-dots button{
+.carousel-dots button{
     width:10px;
     height:10px;
     border-radius:50%;
@@ -1121,27 +836,11 @@ body::-webkit-scrollbar {
     cursor:pointer
   }
 
-  .carousel-dots button.active{
+.carousel-dots button.active{
     background:#ffaa00;
   }
 
-
-  /* phone tweaks */
-@media (max-width: 470px){
-
-  .carousel-content-1 p{
-    font-size: clamp(5px, 3.1vw, 16px);
-    line-height: 1.2;
-    margin: 10px 0 0;
-    overflow-wrap: anywhere;
-    hyphens: auto;
-    width:90%;  
-     hyphens: none;
-  word-break: normal;
-  overflow-wrap: normal;
-  }
-
-  .carousel-content{
+.carousel-content{
   position: absolute;
   left: 5%;
   bottom: 12%;
@@ -1153,18 +852,19 @@ body::-webkit-scrollbar {
    z-index: 20;
   }
 
-  .carousel-content h2 {
+.carousel-content h2{
     line-height: .80;
   width:100%;  
   }
 
-    .carousel-content p {
+.carousel-content p{
      color: #ffffff;
    font-family: Gilroy_Regular;
    font-size: 16px;
    text-align: justify;
   text-justify: inter-word;
   }
+
 }
 
 
@@ -1188,19 +888,18 @@ border: 1px solid transparent;         /* thickness of the border */
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
-
 .carousel-track{
    height: 100%;
    }
 
-.carousel-slide {
+.carousel-slide{
   position: relative;
   min-width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.carousel-slide .slide-link {
+.carousel-slide .slide-link{
   display: block;
   width: 100%;
   height: 100%;
@@ -1220,7 +919,9 @@ border: 1px solid transparent;         /* thickness of the border */
 }
 
 /* If the carousel sits inside a flex/grid container that’s aligning items to the start: */
-.carousel{ align-self: center; }          /* center within flex/grid parent */
+.carousel{ align-self: center; }
+
+/* center within flex/grid parent */
 
   
 /* each slide is a frame */
@@ -1240,6 +941,7 @@ border: 1px solid transparent;         /* thickness of the border */
   display: block;
   pointer-events: none;            /* IMPORTANT */
 }
+
 .carousel-slide::before{
   content:"";
   position:absolute; inset:0;
@@ -1258,11 +960,8 @@ border: 1px solid transparent;         /* thickness of the border */
 /* keep dots on top so they stay clickable */
 .carousel-dots{ z-index: 0; position: absolute; /* existing positioning */ }
 
+.pill{ justify-content: start; }
 
-/* Stack on mobile */
-@media (max-width: 780px){
-  .contact-row{ grid-template-columns: 1fr; }
-  .pill{ justify-content: start; }
 }
 
 /* progress container sits centered under the dots */
@@ -1288,8 +987,7 @@ border: 1px solid transparent;         /* thickness of the border */
   transform: scaleX(0);        /* JS drives 0 → 1 */
 }
 
-
-.contact-popup {
+.contact-popup{
   position: fixed;
   top: 0;
   left: 0;
@@ -1303,11 +1001,11 @@ border: 1px solid transparent;         /* thickness of the border */
   transition: opacity 0.3s ease;
 }
 
-.contact-popup.hidden {
+.contact-popup.hidden{
   display: none;
 }
 
-.contact-popup__content {
+.contact-popup__content{
   font-family: Gilroy_Bold;
   background: #ffaa00;
   color: rgb(0, 0, 0);
@@ -1320,7 +1018,7 @@ border: 1px solid transparent;         /* thickness of the border */
   line-height: 1.3;
 }
 
-.contact-popup__content h2 {
+.contact-popup__content h2{
   margin-bottom: 20px;
   color: #ffffff00;
        background: -webkit-linear-gradient(90deg,#424242, #151515);
@@ -1329,7 +1027,7 @@ border: 1px solid transparent;         /* thickness of the border */
        font-size: 28px;
 }
 
-.contact-popup__content a {
+.contact-popup__content a{
   color: #ffffff00;
        background: -webkit-linear-gradient(90deg,#424242, #151515);
        -webkit-background-clip: text;rgb(255, 255, 255)
@@ -1338,11 +1036,11 @@ border: 1px solid transparent;         /* thickness of the border */
   font-size: 14px;
 }
 
-.contact-popup__content a:hover {
+.contact-popup__content a:hover{
   text-decoration: underline;
 }
 
-.contact-popup__close {
+.contact-popup__close{
   position: absolute;
   top: 15px;
   right: 20px;
@@ -1352,63 +1050,3 @@ border: 1px solid transparent;         /* thickness of the border */
   color: white;
   cursor: pointer;
 }
-
-
-/* Phones/tablets: tap goes to the wrapper/link, not the <video> */
-@media (hover: none) and (pointer: coarse) {
-  .oldvideoPreview__box video { pointer-events: none; }
-}
-
-
-.cta-btn {
-  display: inline-block;
-  padding: 6px 16px;
-  font-family: Gilroy_Bold, system-ui, sans-serif;
-  font-size: 14px;
-  margin-top: 12px;
-  text-decoration: none;
-  border-radius: 999px;
-   color: #ffaa00;
-  border: 1px solid #ffaa00;
-  transition: transform .12s ease, box-shadow .12s ease;
-  line-height: 1;
-}
-
-.cta-btn:hover { 
-  transform: scale(1.03); 
-  background-color: rgba(0, 0, 0, 0.253);
-  box-shadow: 0 6px 18px rgba(0,0,0,.0); 
-}
-.cta-btn:active { transform: translateY(0); box-shadow: none; }
-
-/* keep dots on top (some earlier rules set them to z:0) */
-.carousel-dots { z-index: 30 !important; }
-
-/* keep swipe but allow clicks normally */
-.carousel { touch-action: pan-y; cursor: grab; user-select: none; }
-.carousel.grabbing { cursor: grabbing; }
-.carousel-track.dragging { transition: none !important; }
-
-
-
-/* let vertical page scroll pass through; we hijack only horizontal */
-.scroll__container { touch-action: pan-y; }
-
-/* make the slider feel draggable everywhere */
-.movie__slider { cursor: grab; user-select: none; }
-.movie__slider.dragging { transition: none !important; }
-
-/* stop native image/anchor dragging inside rows */
-.scroll__row img,
-.scroll__row a,
-.scroll__row video {
-  -webkit-user-drag: none;
-  user-drag: none;
-  user-select: none;
-}
-
-
-.scroll__container .handle { display: flex !important; }
-
-
-
