@@ -163,7 +163,8 @@ body::-webkit-scrollbar {
         transition: all 0.2s;
         height: 60px;
         align-items: center;
-        background: linear-gradient(to right, #ffaa00 20%, #ffaa00 100%);
+        background: linear-gradient(270deg, #000000 00%, #000000 100%);/* #ffb000 is Current yellow */
+        #ffb000
     }
     
     /* This is when you scroll, if on*/
@@ -175,7 +176,7 @@ body::-webkit-scrollbar {
     .nav__title {
       cursor: pointer;
       color: #ffffff00;
-       background: -webkit-linear-gradient(90deg,#424242, #151515);
+       background: -webkit-linear-gradient(90deg,#ffffff, #cecece);
        -webkit-background-clip: text;rgb(255, 255, 255)
        -webkit-text-fill-color: transparent;
       font-size: 24px;
@@ -191,6 +192,24 @@ body::-webkit-scrollbar {
       overflow: none;
       padding-right: 0px;
       z-index: 2;
+}
+
+.contactBtn {
+  cursor: pointer;
+  color: #ffffff00;
+  background: -webkit-linear-gradient(90deg,#ffffff, #cecece);
+  /* this is for black on yellow -webkit-linear-gradient(90deg,#424242, #151515); */
+  -webkit-background-clip: text;rgb(255, 255, 255)
+  outline: none;
+  border: none;
+  margin-right: 30px;
+  margin-top: 2px;
+  font-family: Gilroy_Bold;
+  font-size: 20px;
+  position: absolute;
+  right: calc(16px + env(safe-area-inset-right));
+  top: 50%;
+  transform: translateY(-50%);
 }
     
         .nav__page {
@@ -673,7 +692,7 @@ body::-webkit-scrollbar {
                 height: 2px;
                 background-color: rgba(255, 255, 255, .5);
                 opacity: 1;
-                border-radius: 0px;
+                border-radius: 30px;
               }
               .progress-bar {
                 display: flex;
@@ -793,6 +812,7 @@ body::-webkit-scrollbar {
     display: flex;
     gap: .25rem;
     opacity: 1;
+    border-radius: 30px;
   }
   
   .progress-item {
@@ -801,7 +821,7 @@ body::-webkit-scrollbar {
     height: 4px;
     background-color: rgba(255, 255, 255, .5);
     opacity: 1;
-    border-radius: 0px;
+    border-radius: 30px;
   }
 
 }
@@ -1240,7 +1260,7 @@ border: 1px solid transparent;         /* thickness of the border */
   width: min(100%, 100vw);     /* match your dots width/feel */
   height: 4px;
   background: rgba(0, 0, 0, 0);
-  border-radius: 3px;
+  border-radius: 30px;
   overflow: hidden;
   z-index: 15;                 /* above media, under nav */
 }
@@ -1319,22 +1339,6 @@ border: 1px solid transparent;         /* thickness of the border */
   cursor: pointer;
 }
 
-.contactBtn {
-  cursor: pointer;
-  color: #ffffff00;
-  background: -webkit-linear-gradient(90deg,#424242, #151515);
-  -webkit-background-clip: text;rgb(255, 255, 255)
-  outline: none;
-  border: none;
-  margin-right: 30px;
-  margin-top: 2px;
-  font-family: Gilroy_Bold;
-  font-size: 20px;
-  position: absolute;
-  right: calc(16px + env(safe-area-inset-right));
-  top: 50%;
-  transform: translateY(-50%);
-}
 
 /* Phones/tablets: tap goes to the wrapper/link, not the <video> */
 @media (hover: none) and (pointer: coarse) {
