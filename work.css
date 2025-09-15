@@ -1191,6 +1191,9 @@ border: 1px solid transparent;         /* thickness of the border */
 
 .carousel-track{
    height: 100%;
+    padding: 0 0px;         /* add 1px on both sides */
+  margin: 0 -1px;         /* pull it back so layout width doesn’t change */
+  will-change: transform; /* keeps transforms crisp */
    }
 
 .carousel-slide {
