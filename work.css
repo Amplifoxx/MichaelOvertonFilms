@@ -5,7 +5,7 @@
   }
 
   :root {
-    --handle-size:3rem;
+    --handle-size:55px;
     --img-gap: 0rem;
   }
   /* end of scrolling side handles */
@@ -16,23 +16,31 @@
     padding: 0px;
 }
 
+body::before {
+  content: "";
+  position: absolute;   /* stays put when scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 480px;     /* adjust gradient height */
+  background: linear-gradient(
+    rgb(9, 9, 9) 0%,   /* dark at very top */
+    rgba(198, 55, 169, 0) 100%    /* fade to transparent */
+  );
+  pointer-events: none;   /* don't block clicks */
+  z-index: 0;           /* above background, below nav */
+}
+
 html, body {
     font-family: Inter_Regular;
   background-attachment: fixed;
   background-size: cover;
   color-scheme: dark;  
-    background:
-    /* dot matrix */
-    radial-gradient(circle, rgba(255, 191, 0, 0.03) 1px, transparent 1px),
-    /* your gradient */
-    radial-gradient(
-    ellipse at  center,       /* position the gradient at the top */
-    rgba(52, 52, 52, 0.935)10%,  /* light center */
-    rgba(10, 16, 23, 0.994) 100%      /* darker edges */
-  );
-  background-size: 10px 10px, cover;  /* dot spacing + gradient fill */
+background-color:#131314;
+
   background-position: 0 0, center;
   background-attachment: fixed;  
+  overscroll-behavior: none; /* disables top/bottom spring in most browsers */
 }
 
 .nav__bottom-bar {
@@ -68,7 +76,7 @@ body::-webkit-scrollbar {
 }
 
 .spacer {
-  height: 86px;
+  height: 76px;
 }
 
 .spacer_2 {
@@ -85,7 +93,7 @@ body::-webkit-scrollbar {
     font-weight: 0;
     z-index: 16;
    color: #85767600;
-  background: -webkit-linear-gradient(90deg,#636363, #808080);
+  background: -webkit-linear-gradient(90deg,#ababab, #808080);
   -webkit-background-clip: text;rgb(255, 255, 255)
   -webkit-text-fill-color: transparent;
 }
@@ -161,22 +169,22 @@ body::-webkit-scrollbar {
         justify-content: space-between;
         transition-timing-function: ease-in;
         transition: all 0.2s;
-        height: 60px;
+        height: 76px;
         align-items: center;
-        background: linear-gradient(270deg, #000000 00%, #000000 100%);/* #ffb000 is Current yellow */
-        #ffb000
+        background-color: #00000000;/* #ffb000 is Current yellow */
     }
     
-    /* This is when you scroll, if on*/
-    .nav__black {
-        background-color: #fbc81d;
-        z-index: 2;
-    }
+
+
+    .nav.scrolled {
+  background-color:#000000;/* #ffb000 is Current yellow */
+  transition: background-color 0.4s ease;
+}
     
     .nav__title {
       cursor: pointer;
       color: #ffffff00;
-       background: -webkit-linear-gradient(90deg,#ffffff, #cecece);
+       background: -webkit-linear-gradient(270deg,#e9e9e9, #ffffff);
        -webkit-background-clip: text;rgb(255, 255, 255)
        -webkit-text-fill-color: transparent;
       font-size: 24px;
@@ -395,7 +403,7 @@ body::-webkit-scrollbar {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.9);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -410,10 +418,10 @@ body::-webkit-scrollbar {
 .lightbox-content {
   position: relative;
   width: 80%;
-  max-width: 960px;
   aspect-ratio: 16/9;
   background: #000;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .lightbox-content iframe {
@@ -682,7 +690,7 @@ body::-webkit-scrollbar {
              font-weight: 0;
               z-index: 1;
                 color: #85767600;
-               background: -webkit-linear-gradient(90deg,#636363, #808080);
+               background: -webkit-linear-gradient(90deg,#bcbcbc, #ffffff);
                -webkit-background-clip: text;rgb(255, 255, 255)
               -webkit-text-fill-color: transparent;
               }
@@ -712,8 +720,8 @@ body::-webkit-scrollbar {
     }
 
 /* iOS-friendly touch + desktop-friendly drag */
-.carousel { touch-action: pan-y; cursor: grab; user-select: none; }
-.carousel.grabbing { cursor: grabbing; }
+.carousel { touch-action: pan-y; cursor: default; user-select: none; }
+.carousel.grabbing { cursor: default; }
 /* no easing while dragging so it tracks your finger */
 .carousel-track.dragging { transition: none !important; }
 /* keep dots above full-slide link (override earlier z:0) */
@@ -743,12 +751,31 @@ body::-webkit-scrollbar {
       background: linear-gradient(to right, rgba(0,0,0,0.7) 30%, transparent);
     }
 
+    .carousel-slide::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg,
+   rgba(0,0,0,0.0) 40%,    /* soft black at top */
+    rgba(0,0,0,0.5) 100%  /* stronger at bottom */
+  );
+  pointer-events: none; /* keeps clicks on video functional */
+  z-index: 1; /* sits above video, below nav/buttons */
+}
+
+
+
+
     .carousel-content {
       position: absolute;
       bottom: 20%;
       left: 5%;
       z-index: 2;
     }
+    
 
     .carousel-content h2 {
       font-size: 3rem;
@@ -815,7 +842,7 @@ body::-webkit-scrollbar {
  font-weight: 0;
   z-index: 1;
    color: #85767600;
-  background: -webkit-linear-gradient(90deg,#636363, #808080);
+  background: -webkit-linear-gradient(270deg,#bcbcbc 0%, #ffffff 30%);
   -webkit-background-clip: text;rgb(255, 255, 255)
   -webkit-text-fill-color: transparent;
   }
@@ -825,6 +852,7 @@ body::-webkit-scrollbar {
     gap: .25rem;
     opacity: 1;
     border-radius: 30px;
+    z-index: 0;
   }
   
   .progress-item {
@@ -1010,13 +1038,6 @@ body::-webkit-scrollbar {
     
   }
 
-  .carousel-slide::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to right,rgba(0, 0, 0, 0.0) 26%,transparent);
-    z-index:11;
-  }
 
   .carousel-content{
   position: absolute;
@@ -1096,9 +1117,8 @@ body::-webkit-scrollbar {
   .carousel-content-1{ width: min(100%, 400px);
     text-align: justify;
   text-justify: ; 
-  
-  
   }
+  
 }
 
   .carousel-content h2{margin:0;
@@ -1126,8 +1146,17 @@ body::-webkit-scrollbar {
   }
 
 
+    /* phone tweaks */
+@media (max-width: 530px){
+
+.carousel {
+    width: min(100%, 93vw) !important;
+  }
+}
+
   /* phone tweaks */
 @media (max-width: 470px){
+
 
   .carousel-content-1 p{
     font-size: clamp(5px, 3.1vw, 16px);
@@ -1140,6 +1169,7 @@ body::-webkit-scrollbar {
   word-break: normal;
   overflow-wrap: normal;
   }
+
 
   .carousel-content{
   position: absolute;
@@ -1165,6 +1195,8 @@ body::-webkit-scrollbar {
    text-align: justify;
   text-justify: inter-word;
   }
+
+  
 }
 
 
@@ -1172,20 +1204,19 @@ body::-webkit-scrollbar {
 .carousel{
   position: relative;
   display: block;          /* ignore any inline/flex quirks */
-  width: min(100%, 93vw);/* centered, not full-bleed */
-  margin: 2px auto;     /* <-- centers it */
+  width: min(100%, 100% - (110px));/* centered, not full-bleed */
+  margin: 0px auto;     /* <-- centers it */
   aspect-ratio: 16 / 9;
   min-height: 400px;
   max-height: 30vw;
   overflow: hidden;
-  background: #000;
-  border-radius: 10px;     /* optional, looks nice */
-border: 1px solid transparent;         /* thickness of the border */
-  border-radius: 16px;                   /* your corner radius */
-  background: linear-gradient(215deg, #ffaa0026 50%, #ff4d001f 100%) border-box, /* gradient border */
+  background: #000;    /* optional, looks nice */
+border: 1px solid #252525;         /* thickness of the border */
+  border-radius: 6px;                   /* your corner radius */
+  background: linear-gradient(135deg, #ff480054 50%, #ffa2007d 100%) border-box, /* gradient border */
     #00000000 content-box;                     /* inner fill (black or your bg) */
     /* shadow effect */
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -1277,9 +1308,9 @@ border: 1px solid transparent;         /* thickness of the border */
   width: min(100%, 100vw);     /* match your dots width/feel */
   height: 4px;
   background: rgba(0, 0, 0, 0);
-  border-radius: 30px;
+  border-radius: 0px;
   overflow: hidden;
-  z-index: 15;                 /* above media, under nav */
+  z-index: 1;                 /* above media, under nav */
 }
 
 /* animated fill */
@@ -1385,11 +1416,11 @@ border: 1px solid transparent;         /* thickness of the border */
 .cta-btn:active { transform: translateY(0); box-shadow: none; }
 
 /* keep dots on top (some earlier rules set them to z:0) */
-.carousel-dots { z-index: 30 !important; }
+.carousel-dots { z-index: 1 !important; }
 
 /* keep swipe but allow clicks normally */
-.carousel { touch-action: pan-y; cursor: grab; user-select: none; }
-.carousel.grabbing { cursor: grabbing; }
+.carousel { touch-action: pan-y; cursor: default; user-select: none; }
+.carousel.grabbing { cursor: default; }
 .carousel-track.dragging { transition: none !important; }
 
 
@@ -1398,7 +1429,7 @@ border: 1px solid transparent;         /* thickness of the border */
 .scroll__container { touch-action: pan-y; }
 
 /* make the slider feel draggable everywhere */
-.movie__slider { cursor: grab; user-select: none; }
+.movie__slider { cursor: default; user-select: none; }
 .movie__slider.dragging { transition: none !important; }
 
 /* stop native image/anchor dragging inside rows */
