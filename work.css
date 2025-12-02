@@ -36,7 +36,7 @@ html, body {
   background-attachment: fixed;
   background-size: cover;
   color-scheme: dark;  
-background-color: #17171b;
+background-color: #17171b; /* I like this color #17171b */
 
   background-position: 0 0, center;
   background-attachment: fixed;  
@@ -80,7 +80,7 @@ body::-webkit-scrollbar {
 }
 
 .spacer_2 {
-  height: 40px;
+  height: 80px;
 }
 
 
