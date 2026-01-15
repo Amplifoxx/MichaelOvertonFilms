@@ -1452,5 +1452,52 @@ border: 1px solid #252525;         /* thickness of the border */
 
 .scroll__container .handle { display: flex !important; }
 
+.carousel-slide .laurels-overlay{
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+  box-sizing: border-box;
+  z-index: 999;
 
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  column-gap: 12px;
+  row-gap: 10px;
 
+  direction: rtl;              /* fill rows from the right */
+
+  justify-content: start;       /* IMPORTANT: with rtl, start = right */
+  justify-items: start;         /* keep items aligned to the right edge of their cells */
+
+  pointer-events: none;
+}
+
+/* keep images normal */
+.carousel-slide .laurels-overlay img{
+  direction: ltr;
+  position: static !important;
+  display: block;
+  height: 100px;
+  width: auto !important;
+  max-width: none !important;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+}
+
+/* Mobile: still GRID (2 columns) */
+@media (max-width: 768px){
+  .carousel-slide .laurels-overlay{
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 10px;
+    row-gap: 8px;
+
+    direction: rtl;          /* keep it */
+    justify-content: start;  /* with rtl, start = right */
+    justify-items: start;
+  }
+
+  .carousel-slide .laurels-overlay img{
+    height: 64px;
+  }
+}
