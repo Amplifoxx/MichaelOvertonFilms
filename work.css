@@ -1462,14 +1462,14 @@ border: 1px solid #252525;         /* thickness of the border */
   z-index: 999;
 
   display: grid;
-  grid-template-columns: repeat(2, max-content);
+  grid-template-columns: repeat(4, max-content);
   column-gap: 12px;
   row-gap: 10px;
 
-  direction: rtl;              /* fill rows from the right */
+  direction: ltr;              /* fill rows from the right */
 
-  justify-content: start;       /* IMPORTANT: with rtl, start = right */
-  justify-items: start;         /* keep items aligned to the right edge of their cells */
+  justify-content: end;       /* IMPORTANT: with rtl, start = right */
+  justify-items: end;         /* keep items aligned to the right edge of their cells */
 
   pointer-events: none;
 }
